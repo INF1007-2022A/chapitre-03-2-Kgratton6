@@ -3,44 +3,59 @@
 
 def dissipated_power(voltage, resistance):
 	# TODO: Calculer la puissance dissipée par la résistance.
-	return 0
+	return (voltage**2)/resistance
 
 def orthogonal(v1, v2):
 	# TODO: Retourner vrai si les vecteurs sont orthogonaux, faux sinon.
 	v1[0] # Pour accéder au X
 	v1[1] # Pour accéder au Y
-	pass
+	result = (v1[0]*v2[0]) + (v1[1]*v2[1])
+	return result == 0
 
 def average(values):
 	# TODO: Calculer la moyenne des valeurs positives (on ignore les valeurs strictement négatives).
+	total = 0
+	diviseur = 1
 	for v in values:
-		pass # La variable v contient une valeur de la liste.
+		if v > 0:
+			total += v
+			diviseur += 1
+		else:
+			pass
+
+	return total / diviseur
 
 def bills(value):
 	# TODO: Calculez le nombre de billets de 20$, 10$ et 5$ et pièces de 1$ à remettre pour représenter la valeur.
+	twenties = tens = fives = ones = 0
 	while value != 0:
 		if value >= 20:
-			pass
+			twenties += value // 20
+			value = value % 20
 		elif value >= 10:
-			pass
+			tens += value // 10
+			value = value % 10
 		elif value >= 5:
-			pass
+			fives += value // 5
+			value = value % 5
 		elif value >= 1:
-			pass
+			ones = value
+			value = 0
 
-	return (twenties, tens, fives, twos, ones);
+	return (twenties, tens, fives, ones);
 
-def format_base(value, base, digit_letters):
+def format_base(value, base, letters):
 	# Formater un nombre dans une base donné en utilisant les lettres fournies pour les chiffres<
 	# `digits_letters[0]` Nous donne la lettre pour le chiffre 0, ainsi de suite.
 	result = ""
 	abs_value = abs(value)
 	while abs_value != 0:
-		pass
+		digit_value = abs_value % base
+		result += letters[digit_value]
+		abs_value //= base
 	if value < 0:
-		# TODO: Ne pas oublier d'ajouter '-' devant pour les nombres négatifs.
-		pass
-	return result
+		result += "-"
+	return result[::-1]
 
 
 if __name__ == "__main__":
@@ -48,4 +63,4 @@ if __name__ == "__main__":
 	print(orthogonal((1, 1), (-1, 1)))
 	print(average([1, 4, -2, 10]))
 	print(bills(137))
-	print(format_base(-42, 16, "0123456789ABCDEF"))
+	print(format_base(42, 16, "0123456789ABCDEF"))
